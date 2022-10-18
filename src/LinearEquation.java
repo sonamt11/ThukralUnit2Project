@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 public class LinearEquation {
     /* Instance Variables */
     private int x1;
@@ -22,21 +23,31 @@ public LinearEquation(int x1, int y1, int x2, int y2)
 /* Calculates and returns distance between (x1, y1) and (x2, y2), rounded to
    the nearest hundredth */
     public double distance() {
-        return 0.0;
+        return Math.sqrt((Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
     }
 
 
     /* Calculates and returns the y-intercept of the line between (x1, y1) and
        (x2, y2), rounded to the nearest hundredth */
     public double yIntercept() {
-        return 0.0;
+        int xDistance = x2 - x1;
+        int yDistance = y2 - y1;
+        int xCoord = x1;
+        int yCoord = y1;
+
+        while (xCoord != 0) {
+            xCoord -= xDistance;
+            yCoord -= yDistance;
+        }
+
+        return yCoord;
     }
 
 
     /* Calculates and returns the slope of the line between (x1, y1) and
        (x2, y2), rounded to the nearest hundredth */
     public double slope() {
-        return 0.0;
+        return roundedToHundredth((y2 - y1)/(x2 - x1));
     }
 
 
@@ -65,14 +76,24 @@ public LinearEquation(int x1, int y1, int x2, int y2)
                subtraction!
      */
     public String equation() {
-        return "";
+        String slope = "";
+        if ((y2 - y1) % (x2 - x1) != 0) {
+            if ((y2 - y1) > 0 && (x2 - x1) < 0) {
+                slope =  (-1 * (y2 - y1)) + "/" + (x2 - x1);
+            }
+            if ((y2 - y1) < 0 && (x2 - x1) < 0) {
+                slope += (Math.abs(y2 - y1) + "/" + Math.abs(x2 - x1));
+            }
+            slope += (y2 - y1) + "/" + (x2 - x1);
+        }
+        return "y = " + slope() + "x + " + yIntercept();
     }
 
 
     /* Returns a String of the coordinate point on the line that has the given x value, with
        both x and y coordinates as decimals to the nearest hundredth, e.g (-5.0, 6.75) */
     public String coordinateForX(double xValue) {
-        return "";
+        return "(" + xValue + ", " + (slope() * xValue + yIntercept()) + ")";
     }
 
 
@@ -82,7 +103,10 @@ public LinearEquation(int x1, int y1, int x2, int y2)
         HINT:  the Math.round method can help with this!
      */
     public double roundedToHundredth(double toRound) {
-        return 0.0;
+        DecimalFormat formatter = new DecimalFormat("#.##");
+        String formatted = formatter.format(toRound);
+        double formatted2 = Double.parseDouble(formatted.substring(0));
+        return formatted2;
     }
 
 
@@ -99,7 +123,12 @@ public LinearEquation(int x1, int y1, int x2, int y2)
 
       */
     public String lineInfo() {
-        return "";
+        String info = "The two points are: (" + x1 + ", " + y1 + ") and (" + x2 + ", " + y2 + ")";
+        info += "\nThe equation f the line between these points is: " + equation();
+        info += "\nThe slope of this line is: " + slope();
+        info += "\nThe y-intercept of the line is: " + yIntercept();
+        info += "\nThe distance between the two points is: " + distance();
+        return info;
     }
 
 }
