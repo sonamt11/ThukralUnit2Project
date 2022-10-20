@@ -30,17 +30,19 @@ public LinearEquation(int x1, int y1, int x2, int y2)
     /* Calculates and returns the y-intercept of the line between (x1, y1) and
        (x2, y2), rounded to the nearest hundredth */
     public double yIntercept() {
-        int xDistance = x2 - x1;
-        int yDistance = y2 - y1;
-        int xCoord = x1;
-        int yCoord = y1;
-
-        while (xCoord != 0) {
-            xCoord -= xDistance;
-            yCoord -= yDistance;
+//        int xDistance = x2 - x1;
+//        int yDistance = y2 - y1;
+//        int xCoord = x1;
+//        int yCoord = y1;
+//
+//        while (xCoord <= 0) {
+//            xCoord -= xDistance;
+//            yCoord -= yDistance;
         }
 
-        return yCoord;
+        return y1 - ((y2 - y1)/(x2 - x1) * x1);
+
+//        return yCoord;
     }
 
 

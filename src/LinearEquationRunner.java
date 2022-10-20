@@ -17,7 +17,7 @@ public class LinearEquationRunner {
 
         LinearEquation math = new LinearEquation(x1, y1, x2, y2);
 
-        math.lineInfo();
+        System.out.println(math.lineInfo());
 
         System.out.println();
         System.out.println("Enter a value for x: ");
